@@ -22,4 +22,6 @@ Homepage = "https://github.com/alphaO4/getIP/"
 Issues = "https://github.com/alphaO4/getIP/issues"
 
 [tool.setuptools.dynamic]
-dependencies = {file = ["requirements.txt"]}
+dependencies = [
+  "requests",
+]
