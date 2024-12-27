@@ -1,4 +1,3 @@
-[![Upload Python Package](https://github.com/alphaO4/getIP/actions/workflows/python-publish.yml/badge.svg?branch=main)](https://github.com/alphaO4/getIP/actions/workflows/python-publish.yml)
 # getIP
 The Home of the getIP python package.
 ---
