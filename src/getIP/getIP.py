@@ -38,7 +38,6 @@ class getIP_logic:
         return ipv6_address[0]
     
 
-
 def local():
     return getIP_logic.getIPv4()
 
