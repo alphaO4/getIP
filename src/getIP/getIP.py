@@ -3,59 +3,67 @@ from requests import get
 import socket
 import re
 
-class getIP_logic:
-    def getIPv4():
+class GetIPLogic:
+    def get_ipv4(self):
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.connect(("69.69.69.69", 80))
-        ip = s.getsockname()[0]
-        s.close()
+        try:
+            s.connect(("69.69.69.69", 80))
+            ip = s.getsockname()[0]
+        finally:
+            s.close()
         return ip
     
     # TODO: Only works on Linux
     # Credit: https://tech-bloggers.in/get-ipv6-info-using-python/
-    def getIPv6():
- 
-        # Execute the ifconfig command
-        output = subprocess.check_output(["ifconfig"])
+    def get_ipv6(self):
+        try:
+            # Execute the ifconfig command
+            output = subprocess.check_output(["ifconfig"])
 
-        # Extract the IPv6 address using regular expressions
-        ipv6_pattern = r"inet6 ([\da-fA-F:]+)"
-        ipv6_address = re.findall(ipv6_pattern, str(output))
+            # Extract the IPv6 address using regular expressions
+            ipv6_pattern = r"inet6 ([\da-fA-F:]+)"
+            ipv6_address = re.findall(ipv6_pattern, str(output))
 
-        # Print the IPv6 address
-        print(ipv6_address[0])
+            if ipv6_address:
+                return ipv6_address[0]
+            else:
+                return None
+        except subprocess.CalledProcessError as e:
+            return None
     
     # Get public IPv4 address by connecting to ipify.org
-    def getIPv4_public():
-        return get('https://api.ipify.org').text
+    def get_ipv4_public(self):
+        try:
+            return get('https://api.ipify.org').text
+        except Exception as e:
+            return None
 
     # Get public IPv6 address by connecting to ipify.org
-    def getIPv6_public():
-        output = get('https://api64.ipify.org').text
-        # Extract the IPv6 address using regular expressions
-        ipv6_pattern = r"inet6 ([\da-fA-F:]+)"
-        ipv6_address = re.findall(ipv6_pattern, str(output))
-        return ipv6_address[0]
+    def get_ipv6_public(self):
+        try:
+            return get('https://api64.ipify.org').text
+        except Exception as e:
+            return None
 
 
 def local():
-    return getIP_logic.getIPv4()
+    return GetIPLogic().get_ipv4()
 
 def localv4():
-    return getIP_logic.getIPv4()
+    return GetIPLogic().get_ipv4()
 
 def localv6():
-    return getIP_logic.getIPv6()
+    return GetIPLogic().get_ipv6()
 
-def Public():
-    return getIP_logic.getIPv4_public()
+def public():
+    return GetIPLogic().get_ipv4_public()
 
-def Publicv4():
-    return getIP_logic.getIPv4_public()
+def publicv4():
+    return GetIPLogic().get_ipv4_public()
 
-def Publicv6():
-    return getIP_logic.getIPv6_public()
+def publicv6():
+    return GetIPLogic().get_ipv6_public()
 
-def Hostname(pub=False):
+def hostname(pub=False):
     return socket.gethostname()
 
