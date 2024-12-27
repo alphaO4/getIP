@@ -16,12 +16,10 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+dependencies = [
+  "requests"
+]
 
 [project.urls]
 Homepage = "https://github.com/alphaO4/getIP/"
 Issues = "https://github.com/alphaO4/getIP/issues"
-
-[tool.setuptools.dynamic]
-dependencies = [
-  "requests",
-]
