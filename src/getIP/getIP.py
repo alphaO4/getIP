@@ -45,7 +45,6 @@ class GetIPLogic:
         except Exception as e:
             return None
 
-
 def local():
     return GetIPLogic().get_ipv4()
 
