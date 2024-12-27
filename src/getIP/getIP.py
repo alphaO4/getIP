@@ -37,6 +37,7 @@ class getIP_logic:
         ipv6_address = re.findall(ipv6_pattern, str(output))
         return ipv6_address[0]
 
+
 def local():
     return getIP_logic.getIPv4()
 
