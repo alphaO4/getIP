@@ -10,9 +10,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+            persist-credentials: false  # Disables automatic token authentication
+            fetch-depth: 0              # Fetches all history for all branches and tags
 
-    - name: Increment version and create tag
-      run: |
-        python scripts/version_increment.py
+      - name: Set up Git
+        run: |
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+
+      - name: Increment version and create tag
+        run: |
+          python scripts/version_increment.py
