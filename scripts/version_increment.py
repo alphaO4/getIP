@@ -1,4 +1,5 @@
 import subprocess
+import re
 
 
 def get_latest_tag():
@@ -12,15 +13,25 @@ def get_latest_tag():
         return None
 
 
+def parse_tag(tag):
+    # Use regex to extract the version part (vMAJOR.MINOR.PATCH)
+    match = re.match(r"^(v\d+\.\d+\.\d+)", tag)
+    if match:
+        return match.group(1)
+    else:
+        raise ValueError(f"Invalid tag format: {tag}")
+
+
 def get_next_version():
     latest_tag = get_latest_tag()
     if latest_tag is None:
         # No tags found, initialize versioning
         return "v0.0.1"
     else:
-        # Increment the patch version
         try:
-            major, minor, patch = map(int, latest_tag.lstrip("v").split("."))
+            # Extract the version part from the tag
+            version = parse_tag(latest_tag)
+            major, minor, patch = map(int, version.lstrip("v").split("."))
             patch += 1
             return f"v{major}.{minor}.{patch}"
         except ValueError:
