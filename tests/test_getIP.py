@@ -1,6 +1,4 @@
 import pytest
-import sys
-sys.path.append("/home/getipdevenv/getIP/src/getIP")
 from getIP import local, public
 
 
