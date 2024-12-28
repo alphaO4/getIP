@@ -45,11 +45,11 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
 
-      - name: Install bump2version
-        run: pip install bump2version
+      - name: Install bump-my-version
+        run: pip install bump-my-version
 
       - name: Bump version
-        run: bump2version patch
+        run: bump-my-version bump patch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
