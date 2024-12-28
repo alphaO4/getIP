@@ -76,6 +76,7 @@ jobs:
 
         - name: Extract version from __init__.py
           id: get_version
+          shell: python
           run: |
             import re
             version_file = 'src/getIP/__init__.py'
