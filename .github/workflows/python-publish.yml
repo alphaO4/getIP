@@ -4,7 +4,17 @@ on:
   push:
     branches:
       - main
-
+  workflow_dispatch:
+    inputs:
+      bump-type:
+        description: 'Bump type'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+        - major
+        - minor
+        - patch
 jobs:
   test:
     runs-on: ubuntu-latest
