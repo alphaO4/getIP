@@ -55,7 +55,9 @@ jobs:
       needs: bump_version
       runs-on: ubuntu-latest
       if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.actor == github.repository_owner
-
+      permissions:
+        contents: read
+        id-token: write
       steps:
         - name: Checkout repository
           uses: actions/checkout@v3
